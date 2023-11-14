@@ -1,0 +1,62 @@
+<h1 class="text-center">Mis tareas</h1>
+<hr>
+<section class="row">
+    <!-- Menu -->
+    <div class="col-md-4 col-lg-3 col-sm-6 col-12">
+        <h3 class="text-center">Menu</h3>
+        <hr>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let menuItem of menuItems; let i = index">
+                <button type="button" class="btn btn-outline-primary w-100" (click)="setMenuItemAsActive(i)"
+                    [ngClass]="{'active': menuItem.active}">
+                    {{ menuItem.item }}
+                </button>
+            </li>
+            <!-- <li class="list-group-item">
+                <button type="button" 
+                class="btn btn-outline-primary w-100" 
+                (click)="setMenuItemAsActive(menuItems[1])"
+                [ngClass]="{'active': menuItems[1].active}"
+                >
+                    {{ menuItems[1].item }}</button>
+            </li> -->
+        </ul>
+    </div>
+
+    <!-- Tareas Container -->
+    <div class="col">
+        <!--Contenedor de tareas-->
+        <div class=row *ngIf="menuItems[1].active; else formulario">
+            <h3 class="col-12 text-center">Tareas</h3>
+            <hr class="col-12">
+        </div>
+
+        <!-- Tareas Container -->
+        <!--Contenedor nuevas tareas-->
+        <ng-template #formulario>
+            <div class=row>
+                <h3 class="col-12 text-center">Nueva Tarea</h3>
+                <hr class="col-12">
+                <form class="col-6">
+                    <div class="form-floating">
+                        <input #tituloInput type="text" id="titulo" class="form-control" placeholder="" required/>
+                        <label for="titulo">Titulo de la tarea</label>
+                    </div>
+                    <div class="form-floating">
+                        <textarea #descripcionInput name="descripcion" id="descripcion" cols="30" rows="5" class="form-control" placeholder="" required></textarea>
+                        <label for="descripcion">Descripción de la tarea</label>
+                    </div>
+                    <button 
+                    type="button" 
+                    (click)="agregarTarea(tituloInput.value, descripcionInput.value)"
+                    class="btn btn-outline-primary">
+                    Agregar</button>
+
+                {{newTarea | json}}
+                </form>
+            </div>
+        </ng-template>
+    </div>
+
+
+</section>
